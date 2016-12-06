@@ -5,25 +5,33 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.swing.Timer;
 
 // classe non finie
 
-public class FileChecker {
+public class FileChecker implements ActionListener {
 
 	
 	List<FileListener> listener = new ArrayList<FileListener>();
 	Timer timer;
 	List<String> knownFileNames;
 	File dir;
+	FilenameFilter filenameFilter;
 	
 	
 	
-	public FileChecker(File dirName, FilenameFilter filenameFilter){
+	public FileChecker(File dirName, FilenameFilter filenameFilterArg){
 		this.dir = dirName;
-		ActionListener action = new ActionListenerTime();
-		this.timer = new Timer(1000,action);
+		this.timer = new Timer(1000,this);
+		this.filenameFilter = filenameFilterArg;
+		this.updateKnownFileName();
+		this.print();
+	}
+	
+	public void updateKnownFileName() {
+		this.knownFileNames = Arrays.asList(dir.list(filenameFilter));
 	}
 	
 	
@@ -41,13 +49,35 @@ public class FileChecker {
 		}
 	}
 	
-	public void fileFileRemoved (String fileName){
+	public void fireFileRemoved (String fileName){
 		for (FileListener fileListener : this.listener){
 			fileListener.fileRemoved(new FileEvent(fileName));
 		}
 	}
 	
+	public void checkDirectoryFileAdded(){
+		List<String> tempList = new ArrayList<String>();
+		tempList = Arrays.asList(dir.list(filenameFilter));
+		for (String fileName : tempList){
+			if (!this.knownFileNames.contains(fileName)){
+				fireFileAdded(fileName);
+			}
+		}
+	}
 	
+	public void checkDirectoryFileRemoved(){
+		List<String> tempList = new ArrayList<String>();
+		tempList = Arrays.asList(dir.list(filenameFilter));
+		for(String fileName : this.knownFileNames){
+			if(!tempList.contains(fileName)){
+				fireFileRemoved(fileName);
+			}
+		}
+	}
+	
+	public void print(){
+		System.out.println(this.knownFileNames.toString());
+	}
 	
 	//demarre le timer
 	public void start(){
@@ -55,16 +85,17 @@ public class FileChecker {
 	}
 	
 	public void checkFiles(){
-		for (String fileName : this.knownFileNames){
-			this.fireFileAdded(fileName);
-		}
+		this.checkDirectoryFileAdded();
+		this.checkDirectoryFileRemoved();
+		this.updateKnownFileName();
+		this.print();
+	}
+
+
+	public void actionPerformed(ActionEvent e) {
+		this.checkFiles();
+		
 	}
 	
 	
-	//classe privée pour checker les fichiers toutes les secondes
-	private class ActionListenerTime implements ActionListener{
-		public void actionPerformed(ActionEvent event){
-			checkFiles();
-		}
-	}
 }
