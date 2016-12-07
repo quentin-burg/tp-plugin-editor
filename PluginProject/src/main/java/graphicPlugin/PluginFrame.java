@@ -37,23 +37,23 @@ public class PluginFrame extends JFrame implements ActionListener{
 	private JMenuItem open = new JMenuItem("Open");
 	private JMenuItem exit = new JMenuItem("Exit");
 	
+	/**
+	 * Constructor for the PluginFrame class
+	 */
 	public PluginFrame(){
-		this.setLocationRelativeTo(null);
+		this.setLocation(400,100);
 	    this.setTitle("Plugin Project");
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    this.setSize(400, 400);
+	    this.setSize(600, 600);
 	    
 	    this.getContentPane().add(scroll, BorderLayout.CENTER);
 	    
+	    newFile.addActionListener(this);
 	    this.file.add(newFile);
 	    open.addActionListener(this);
 		this.file.add(open);
 		this.file.addSeparator();
-		exit.addActionListener(new ActionListener(){
-		      public void actionPerformed(ActionEvent arg0) {
-		        System.exit(0);
-		      }
-		});
+		exit.addActionListener(this);
 		this.file.add(exit);
 		
 		this.menuBar.add(file);
@@ -64,14 +64,33 @@ public class PluginFrame extends JFrame implements ActionListener{
 	    this.setVisible(true);
 	}
 	
+	/**
+	 * Define which action for the different events
+	 * @param e an ActionEvent that define which action we have to do
+	 */
 	public void actionPerformed(ActionEvent e){
-		int returnVal = fileChooser.showOpenDialog(PluginFrame.this);
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File file = fileChooser.getSelectedFile();
-            this.readFile(file.toString());
+		if (e.getSource().equals(open)){
+			int returnVal = fileChooser.showOpenDialog(PluginFrame.this);
+			if (returnVal == JFileChooser.APPROVE_OPTION) {
+				File file = fileChooser.getSelectedFile();
+				this.textArea.setText(this.readFile(file.toString()));
+			}
+		}
+		if (e.getSource().equals(newFile)){
+			this.textArea.setText("");
+		}
+		
+		if(e.getSource().equals(exit)){
+			System.exit(0);
 		}
 	}
 	
+	/**
+	 * Read an input file and return the string which correspond
+	 * to the content of the file
+	 * @param file the pathname of the file we want to read
+	 * @return the content of the file
+	 */
     public String readFile(String file)
     {
         String lines = "";
