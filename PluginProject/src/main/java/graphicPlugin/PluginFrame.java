@@ -21,6 +21,7 @@ import plugin.Plugin;
 import plugin.PluginFilter;
 import plugin.FileEvent;
 import plugin.FileListener;
+import plugin.FileChecker;
 
 /**
  * 
@@ -46,7 +47,7 @@ public class PluginFrame extends JFrame implements ActionListener, FileListener{
 	
 	private List<Plugin> plugins;
 	private List<JMenuItem> pluginsButtons;
-	
+
 	/**
 	 * Constructor for the PluginFrame class
 	 */
@@ -74,8 +75,19 @@ public class PluginFrame extends JFrame implements ActionListener, FileListener{
 		this.plugins = new ArrayList<Plugin>();
 		this.pluginsButtons = new ArrayList<JMenuItem>();
 		
+		this.addPluginAtBeginning();
+		
 	    this.setVisible(true);
 	}
+	
+	
+	public void addPluginAtBeginning(){
+		List<String> namesOfFiles = FileChecker.getKnownFilesNamesAtBeginning();
+		for (String file : namesOfFiles){
+			this.getPluginFromEvent(new FileEvent(file));
+		}
+	}
+	
 	
 	/**
 	 * Define which action for the different events
@@ -163,9 +175,20 @@ public class PluginFrame extends JFrame implements ActionListener, FileListener{
     			tools.remove(i);
     		}
     	}
-    	
-    	
+    	for(Plugin plugin : plugins){
+    		if(event.getFileName().split(".class")[0].equals(plugin.toString())){
+    			plugins.remove(plugin);
+    		}
+    	}
+    	for(JMenuItem item : pluginsButtons){
+    		if(event.getFileName().split(".class")[0].equals(item.getText())){
+    			pluginsButtons.remove(item);
+    		}
+    	}	
     }
+    	
+    	
+
 	public static void main(String[] args){
 		PluginFrame frame = new PluginFrame();
 	}

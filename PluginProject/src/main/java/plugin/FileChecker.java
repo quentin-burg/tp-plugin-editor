@@ -17,11 +17,12 @@ import javax.swing.Timer;
 public class FileChecker implements ActionListener {
 
 	
-	List<FileListener> listener = new ArrayList<FileListener>();
-	Timer timer;
-	List<String> knownFileNames;
-	File dir;
-	FilenameFilter filenameFilter;
+	private List<FileListener> listener = new ArrayList<FileListener>();
+	private Timer timer;
+	private List<String> knownFileNames;
+	private File dir;
+	private FilenameFilter filenameFilter;
+	private static List<String> knownFilesNamesAtBeginning;
 	
 	/**
 	 * The constructor of FileChecker's class
@@ -33,6 +34,7 @@ public class FileChecker implements ActionListener {
 		this.timer = new Timer(1000,this);
 		this.filenameFilter = filenameFilterArg;
 		this.updateKnownFileName();
+		knownFilesNamesAtBeginning = this.knownFileNames;
 		this.print();
 	}
 	
@@ -50,6 +52,12 @@ public class FileChecker implements ActionListener {
 	public void addListener(FileListener fileListener){
 		this.listener.add(fileListener);
 	}
+	
+	
+	public static List<String> getKnownFilesNamesAtBeginning(){
+		return knownFilesNamesAtBeginning;
+	}
+	
 	
 	/**
 	 * Remove a listener in the list
