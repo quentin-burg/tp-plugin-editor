@@ -7,7 +7,9 @@ public class PluginMain {
 
 	public static void main(String[] args) {
 		FilenameFilter filter = new FileFinishByClass();
-		FileChecker check = new FileChecker(new File("/home/l3/burg/Documents/S5/COO/Donjon"),filter);
+		FileChecker check = new FileChecker(new File("./extensions"),filter);
+		FileListenerFinishByClass fileListenerTemp = new FileListenerFinishByClass();
+		check.addListener(fileListenerTemp);
 		check.start();
 		while(true);
 	}

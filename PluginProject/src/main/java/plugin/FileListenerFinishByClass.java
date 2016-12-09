@@ -4,7 +4,7 @@ public class FileListenerFinishByClass implements FileListener{
 
 	
 	public void fileAdded(FileEvent ev){
-		System.out.println("nouveau : "+ev.getFileName() +"détecté");
+		System.out.println("nouveau : "+ev.getFileName() +" détecté");
 	}
 	
 	public void fileRemoved(FileEvent ev){
