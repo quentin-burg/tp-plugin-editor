@@ -115,7 +115,7 @@ public class PluginFrame extends JFrame implements ActionListener, FileListener{
     
     public Plugin getPluginFromEvent(FileEvent event) {
         String name = event.getFileName();
-        name = name.split(".class")[0];
+        name = "plugins."+name.split(".class")[0];
         try {
             Class pluginClass = Class.forName(name);
             Plugin plugin = (Plugin)pluginClass.newInstance();

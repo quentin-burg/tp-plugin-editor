@@ -33,7 +33,7 @@ public class FileChecker implements ActionListener {
 		this.timer = new Timer(1000,this);
 		this.filenameFilter = filenameFilterArg;
 		this.updateKnownFileName();
-		//this.print();
+		this.print();
 	}
 	
 	/**
@@ -107,9 +107,9 @@ public class FileChecker implements ActionListener {
 	
 	
 	
-//	public void print(){
-//		System.out.println(this.knownFileNames.toString());
-//	}
+	public void print(){
+		System.out.println(this.knownFileNames.toString());
+	}
 	
 	
 	/**
@@ -127,7 +127,7 @@ public class FileChecker implements ActionListener {
 		this.checkDirectoryFileAdded();
 		this.checkDirectoryFileRemoved();
 		this.updateKnownFileName();
-		//this.print();
+		this.print();
 	}
 	
 
