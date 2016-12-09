@@ -73,19 +73,19 @@ public class PluginFrame extends JFrame implements ActionListener, FileListener{
 	 * Define which action for the different events
 	 * @param e an ActionEvent that define which action we have to do
 	 */
-	public void actionPerformed(ActionEvent e){
-		if (e.getSource().equals(open)){
+	public void actionPerformed(ActionEvent event){
+		if (event.getSource().equals(open)){
 			int returnVal = fileChooser.showOpenDialog(PluginFrame.this);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				File file = fileChooser.getSelectedFile();
 				this.textArea.setText(this.readFile(file.toString()));
 			}
 		}
-		if (e.getSource().equals(newFile)){
+		if (event.getSource().equals(newFile)){
 			this.textArea.setText("");
 		}
 		
-		if(e.getSource().equals(exit)){
+		if(event.getSource().equals(exit)){
 			System.exit(0);
 		}
 	}
@@ -117,7 +117,7 @@ public class PluginFrame extends JFrame implements ActionListener, FileListener{
         String name = event.getFileName();
         name = name.split(".class")[0];
         try {
-            Class pluginClass = Class.forName("plugins." + name);
+            Class pluginClass = Class.forName(name);
             Plugin plugin = (Plugin)pluginClass.newInstance();
             return plugin;
         }
@@ -135,6 +135,9 @@ public class PluginFrame extends JFrame implements ActionListener, FileListener{
     public void fileAdded(FileEvent event){
     	JMenuItem item = new JMenuItem(event.getFileName().split(".class")[0]);
     	this.tools.add(item);
+    	Plugin plugin = this.getPluginFromEvent(event);
+    	this.textArea.setText(plugin.transform(this.textArea.getText()));
+    	
     }
     
     public void fileRemoved(FileEvent event){
