@@ -98,8 +98,8 @@ public class PluginFrame extends JFrame implements ActionListener, FileListener{
 		}
 		
 		for (Plugin plugin : plugins){
-			for(JMenuItem Jmenu : pluginsButtons){
-				if(event.getSource().equals(Jmenu))
+			for(JMenuItem item : pluginsButtons){
+				if(event.getSource().equals(item))
 					this.textArea.setText(plugin.transform(this.textArea.getText()));
 			}
 		}
@@ -148,12 +148,12 @@ public class PluginFrame extends JFrame implements ActionListener, FileListener{
     }
     
     public void fileAdded(FileEvent event){
-    	JMenuItem item = new JMenuItem(event.getFileName().split(".class")[0]);
-    	this.tools.add(item);
-    	this.pluginsButtons.add(item);
     	Plugin plugin = this.getPluginFromEvent(event);
     	this.plugins.add(plugin);
-    	this.textArea.setText(plugin.transform(this.textArea.getText())); 	
+    	JMenuItem item = new JMenuItem(event.getFileName().split(".class")[0]);
+    	item.addActionListener(this);
+    	this.pluginsButtons.add(item);
+    	this.tools.add(item);
     }
     
     
