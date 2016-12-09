@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -42,6 +44,9 @@ public class PluginFrame extends JFrame implements ActionListener, FileListener{
 	private JMenuItem open = new JMenuItem("Open");
 	private JMenuItem exit = new JMenuItem("Exit");
 	
+	private List<Plugin> plugins;
+	private List<JMenuItem> pluginsButtons;
+	
 	/**
 	 * Constructor for the PluginFrame class
 	 */
@@ -66,6 +71,9 @@ public class PluginFrame extends JFrame implements ActionListener, FileListener{
 		this.menuBar.add(help);
 		this.setJMenuBar(menuBar);
 		
+		this.plugins = new ArrayList<Plugin>();
+		this.pluginsButtons = new ArrayList<JMenuItem>();
+		
 	    this.setVisible(true);
 	}
 	
@@ -87,6 +95,13 @@ public class PluginFrame extends JFrame implements ActionListener, FileListener{
 		
 		if(event.getSource().equals(exit)){
 			System.exit(0);
+		}
+		
+		for (Plugin plugin : plugins){
+			for(JMenuItem Jmenu : pluginsButtons){
+				if(event.getSource().equals(Jmenu))
+					this.textArea.setText(plugin.transform(this.textArea.getText()));
+			}
 		}
 	}
 	
@@ -135,10 +150,12 @@ public class PluginFrame extends JFrame implements ActionListener, FileListener{
     public void fileAdded(FileEvent event){
     	JMenuItem item = new JMenuItem(event.getFileName().split(".class")[0]);
     	this.tools.add(item);
+    	this.pluginsButtons.add(item);
     	Plugin plugin = this.getPluginFromEvent(event);
-    	this.textArea.setText(plugin.transform(this.textArea.getText()));
-    	
+    	this.plugins.add(plugin);
+    	this.textArea.setText(plugin.transform(this.textArea.getText())); 	
     }
+    
     
     public void fileRemoved(FileEvent event){
     	for(int i=0; i<this.tools.getItemCount();i++){

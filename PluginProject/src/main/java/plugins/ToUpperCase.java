@@ -6,7 +6,6 @@ public class ToUpperCase implements Plugin{
 
 	
 	public ToUpperCase(){
-		
 	}
 	
 	
