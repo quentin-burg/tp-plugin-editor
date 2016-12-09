@@ -15,6 +15,11 @@ import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import plugin.Plugin;
+import plugin.PluginFilter;
+import plugin.FileEvent;
+import plugin.FileListener;
+
 /**
  * 
  * @author Burg Quentin - Menit Alan - Omietanski Alexia
@@ -22,7 +27,7 @@ import javax.swing.JTextArea;
  * Create the graphical part for the plugin project
  *
  */
-public class PluginFrame extends JFrame implements ActionListener{
+public class PluginFrame extends JFrame implements ActionListener, FileListener{
 	
 	private JTextArea textArea = new JTextArea();
 	private JScrollPane scroll = new JScrollPane(textArea);
@@ -108,6 +113,39 @@ public class PluginFrame extends JFrame implements ActionListener{
         return lines;
     }
     
+    public Plugin getPluginFromEvent(FileEvent event) {
+        String name = event.getFileName();
+        name = name.split(".class")[0];
+        try {
+            Class pluginClass = Class.forName("plugins." + name);
+            Plugin plugin = (Plugin)pluginClass.newInstance();
+            return plugin;
+        }
+        catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        catch (InstantiationException e) {
+            throw new RuntimeException(e);
+        }
+        catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    public void fileAdded(FileEvent event){
+    	JMenuItem item = new JMenuItem(event.getFileName().split(".class")[0]);
+    	this.tools.add(item);
+    }
+    
+    public void fileRemoved(FileEvent event){
+    	for(int i=0; i<this.tools.getItemCount();i++){
+    		if(tools.getItem(i).getText().equals(event.getFileName().split(".class")[0])){
+    			tools.remove(i);
+    		}
+    	}
+    	
+    	
+    }
 	public static void main(String[] args){
 		PluginFrame frame = new PluginFrame();
 	}
