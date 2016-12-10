@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
@@ -84,7 +85,7 @@ public class PluginFrame extends JFrame implements ActionListener, FileListener{
 	public void addPluginAtBeginning(){
 		List<String> namesOfFiles = FileChecker.getKnownFilesNamesAtBeginning();
 		for (String file : namesOfFiles){
-			this.getPluginFromEvent(new FileEvent(file));
+			this.fileAdded(new FileEvent(file));
 		}
 	}
 	
@@ -111,8 +112,14 @@ public class PluginFrame extends JFrame implements ActionListener, FileListener{
 		
 		for (Plugin plugin : plugins){
 			for(JMenuItem item : pluginsButtons){
-				if(event.getSource().equals(item))
+				//int k = 0;
+				if(event.getSource().equals(item)){
 					this.textArea.setText(plugin.transform(this.textArea.getText()));
+				}
+//				else if (event.getSource().equals(help.getItem(k))){
+//					JOptionPane.showInputDialog(plugin.helpMessage());
+//				}
+//				k++;
 			}
 		}
 	}
@@ -166,6 +173,7 @@ public class PluginFrame extends JFrame implements ActionListener, FileListener{
     	item.addActionListener(this);
     	this.pluginsButtons.add(item);
     	this.tools.add(item);
+    	this.help.add(item);
     }
     
     
@@ -173,6 +181,7 @@ public class PluginFrame extends JFrame implements ActionListener, FileListener{
     	for(int i=0; i<this.tools.getItemCount();i++){
     		if(tools.getItem(i).getText().equals(event.getFileName().split(".class")[0])){
     			tools.remove(i);
+    			help.remove(i);
     		}
     	}
     	for(Plugin plugin : plugins){
