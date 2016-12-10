@@ -92,7 +92,7 @@ public class PluginFrame extends JFrame implements ActionListener, FileListener{
 	
 	/**
 	 * Define which action for the different events
-	 * @param e an ActionEvent that define which action we have to do
+	 * @param event an ActionEvent that define which action we have to do
 	 */
 	public void actionPerformed(ActionEvent event){
 		if (event.getSource().equals(open)){
