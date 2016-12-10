@@ -112,14 +112,14 @@ public class PluginFrame extends JFrame implements ActionListener, FileListener{
 		
 		for (Plugin plugin : plugins){
 			for(JMenuItem item : pluginsButtons){
-				//int k = 0;
+				int k = 0;
 				if(event.getSource().equals(item)){
 					this.textArea.setText(plugin.transform(this.textArea.getText()));
 				}
-//				else if (event.getSource().equals(help.getItem(k))){
-//					JOptionPane.showInputDialog(plugin.helpMessage());
-//				}
-//				k++;
+				else if (event.getSource().equals(help.getItem(k))){
+					JOptionPane.showMessageDialog(this,plugin.helpMessage());
+				}
+				k++;
 			}
 		}
 	}
@@ -169,11 +169,14 @@ public class PluginFrame extends JFrame implements ActionListener, FileListener{
     public void fileAdded(FileEvent event){
     	Plugin plugin = this.getPluginFromEvent(event);
     	this.plugins.add(plugin);
-    	JMenuItem item = new JMenuItem(event.getFileName().split(".class")[0]);
-    	item.addActionListener(this);
-    	this.pluginsButtons.add(item);
-    	this.tools.add(item);
-    	this.help.add(item);
+    	JMenuItem itemTools = new JMenuItem(event.getFileName().split(".class")[0]);
+    	JMenuItem itemHelp = new JMenuItem(event.getFileName().split(".class")[0]);
+    	itemTools.addActionListener(this);
+    	itemHelp.addActionListener(this);
+    	this.pluginsButtons.add(itemTools);
+    	this.pluginsButtons.add(itemHelp);
+    	this.tools.add(itemTools);
+    	this.help.add(itemHelp);
     }
     
     
