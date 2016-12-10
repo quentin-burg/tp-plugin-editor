@@ -15,7 +15,7 @@ Introduction
 ------------
 
 Dans ce projet, il était question de mettre en place un petit éditeur de texte afin
-de pouvoir ajouter des plugins (par exemple mettre le texte en majuscule) à celui-ci.
+de pouvoir ajouter des plugins (par exemple mettre le texte en majuscule) à celui-ci.   
 Cela nous a permis de mettre en pratique le design pattern Observer.
 
 
@@ -29,7 +29,10 @@ cela fonctionne mais si l'on veut le remettre en minuscule, il ne se passe rien.
 En ce qui concernent le menu Help, il affiche une popup avec le "helpMessage" du Plugin, mais il le fait
 plusieurs fois.
 
+En ce qui concerne les tests, ils fonctionnent sous Eclipse mais pas avec mvn package. On ne sait pas pourquoi.
+C'est pourquoi on a mis le dossier target pour avoir le fichier .jar.
 
+Alan n'a pas fait de commit parce que le VPN ne fonctionne pas de chez lui, mais nous avons travaillé en trinôme tout au long de ce projet.
 
 
 HOWTO
