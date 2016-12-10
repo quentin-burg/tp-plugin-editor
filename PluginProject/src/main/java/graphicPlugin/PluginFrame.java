@@ -198,12 +198,5 @@ public class PluginFrame extends JFrame implements ActionListener, FileListener{
     		}
     	}	
     }
-    	
-    	
-
-	public static void main(String[] args){
-		PluginFrame frame = new PluginFrame();
-	}
-	
 
 }
