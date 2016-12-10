@@ -14,21 +14,21 @@ Quentin BURG
 Introduction
 ------------
 
-Dans ce projet, il était question de produire une petite application qui génère un
-questionnaire à partir d'un fichier texte formaté correctement (une ligne pour la question,
-une ligne pour la réponse et une ligne pour le nombre de points gagnés).
-Nous devions dans un premier temps réaliser l'implémentation de ce questionnaire 
-puis réaliser une interface graphique.
+Dans ce projet, il était question de mettre en place un petit éditeur de texte afin
+de pouvoir ajouter des plugins (par exemple mettre le texte en majuscule) à celui-ci.
+Cela nous a permis de mettre en pratique le design pattern Observer.
 
 
 Remarques
 ----------
 
-Dans ce projet nous avons utilisé plusieurs design pattern, singleton, factory, template method.
+Dans ce projet nous avons utilisé le design pattern Observer.
 
-Nous n'avons pas totalement terminé la partie graphique :    les réponses de l'utilisateur ne sont pas
-prises en compte, nous obtenons donc un pointeur null. De même, nous n'avons pas géré le fait
-de pouvoir changer de langue dans les réponses.
+Nous avons un petit problème concernant les plugins. Si l'on veut mettre un texte en majuscule,
+cela fonctionne mais si l'on veut le remettre en minuscule, il ne se passe rien.    
+En ce qui concernent le menu Help, il affiche une popup avec le "helpMessage" du Plugin, mais il le fait
+plusieurs fois.
+
 
 
 
@@ -55,8 +55,8 @@ Lien vers les diagrammes UML
 
 
 Fichier ucls :    
-* <https://gitlab-etu.fil.univ-lille1.fr/burg/surveyProject/blob/master/pluginUML.ucls>
+* <https://gitlab-etu.fil.univ-lille1.fr/omietanski/PluginProject/blob/master/PluginProject/pluginUML.ucls>
 
 Diagramme UML : 
-* ![Diagramme UML](https://gitlab-etu.fil.univ-lille1.fr/burg/surveyProject/blob/master/pluginUML.png)
+* ![Diagramme UML](https://gitlab-etu.fil.univ-lille1.fr/omietanski/PluginProject/blob/master/PluginProject/pluginUML.png)
 
