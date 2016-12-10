@@ -9,7 +9,7 @@ public class PluginMain {
 
 	public static void main(String[] args) {
 		FilenameFilter filter = new PluginFilter();
-		FileChecker check = new FileChecker(new File("./src/main/java/plugins"),filter);
+		FileChecker check = new FileChecker(new File("./extensions"),filter);
 		PluginFrame fileListenerTemp = new PluginFrame();
 		check.addListener(fileListenerTemp);
 		check.start();

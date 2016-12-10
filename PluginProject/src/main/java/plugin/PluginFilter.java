@@ -25,6 +25,7 @@ public class PluginFilter implements FilenameFilter{
 	 * @return an instance of class of plugin
 	 * @throws ClassNotFoundException
 	 */
+	@SuppressWarnings("rawtypes")
 	public Class uploadPlugin(String className) throws ClassNotFoundException{
 		className = className.split(".class")[0];
 		return Class.forName(className);

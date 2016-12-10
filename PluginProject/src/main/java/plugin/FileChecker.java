@@ -53,12 +53,30 @@ public class FileChecker implements ActionListener {
 		this.listener.add(fileListener);
 	}
 	
-	
+	/**
+	 * Return the list of known files names at beginning
+	 * @return the list of known files names at beginning
+	 */
 	public static List<String> getKnownFilesNamesAtBeginning(){
 		return knownFilesNamesAtBeginning;
 	}
 	
-	
+	/**
+	 * Return the list of listeners
+	 * @return the list of listeners
+	 */
+	public List<FileListener> getListener() {
+		return listener;
+	}
+
+	/**
+	 * Return the known files names
+	 * @return the known files names
+	 */
+	public List<String> getKnownFileNames() {
+		return knownFileNames;
+	}
+
 	/**
 	 * Remove a listener in the list
 	 * @param fileListener the listener we want to remove
